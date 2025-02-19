@@ -90,8 +90,27 @@ AS_DEFS =
 BUILD_OPTIONS ?=
 
 C_DEFS =  $(BUILD_OPTIONS)\
--D$(BOARD) \
--DBOARD=BOARD_$(BOARD)
+-D$(BOARD)
+
+ifeq ($(BOARD),UNO)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_uno.h\"
+else ifeq ($(BOARD),UNO_SHIELD_V3)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_uno_shield_v3.h\"
+else ifeq ($(BOARD),X_CONTROLLER)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_x_controller.h\"
+else ifeq ($(BOARD),MKS_DLC)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_mks_dlc.h\"
+else ifeq ($(BOARD),RAMPS14)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_ramps14.h\"
+else ifeq ($(BOARD),MKS_GEN_L_V1)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_mks_gen_l_v1.h\"
+else ifeq ($(BOARD),RAMBO14)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_rambo14.h\"
+else ifeq ($(BOARD),MELZI_V1_1_4)
+  C_DEFS += -DBOARD=\"src/hal/boards/avr/boardmap_melzi_v114.h\"
+else ifeq ($(BOARD),CUSTOM)
+  C_DEFS += -DMCU=MCU_CUSTOM
+endif
 
 # AS includes
 AS_INCLUDES = 
