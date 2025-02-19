@@ -103,8 +103,15 @@ BUILD_OPTIONS ?=
 C_DEFS =  $(BUILD_OPTIONS)\
 -DSAMD21 \
 -DCFG_TUSB_MCU=OPT_MCU_SAMD21 \
--D__SAMD21E18A__ \
--DBOARD=BOARD_$(BOARD)
+-D__SAMD21E18A__
+
+ifeq ($(BOARD),MZERO)
+  C_DEFS += -D BOARD=\"src/hal/boards/samd21/boardmap_mzero.h\"
+else ifeq ($(BOARD),ZERO)
+  C_DEFS += -D BOARD=\"src/hal/boards/samd21/boardmap_zero.h\"
+else ifeq ($(BOARD),CUSTOM)
+  C_DEFS += -DMCU=MCU_CUSTOM
+endif
 
 # AS includes
 AS_INCLUDES = 
