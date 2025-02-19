@@ -105,8 +105,15 @@ BUILD_OPTIONS ?=
 
 C_DEFS =  $(BUILD_OPTIONS)\
 -DSTM32F103xB \
--DCFG_TUSB_MCU=OPT_MCU_STM32F1 \
--DBOARD=BOARD_$(BOARD)
+-DCFG_TUSB_MCU=OPT_MCU_STM32F1
+
+ifeq ($(BOARD),BLUEPILL)
+  C_DEFS += -DBOARD=\"src/hal/boards/stm32/boardmap_bluepill.h\"
+else ifeq ($(BOARD),MKS_ROBIN_NANO_V1_2)
+  C_DEFS += -DBOARD=\"src/hal/boards/stm32/boardmap_mks_robin_nano_v1_2.h\"
+else ifeq ($(BOARD),CUSTOM)
+  C_DEFS += -DMCU=MCU_CUSTOM
+endif
 
 # AS includes
 AS_INCLUDES = 

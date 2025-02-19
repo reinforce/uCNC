@@ -106,8 +106,19 @@ BUILD_OPTIONS ?=
 
 C_DEFS =  $(BUILD_OPTIONS)\
 -DSTM32F401xC \
--DCFG_TUSB_MCU=OPT_MCU_STM32F4 \
--DBOARD=BOARD_$(BOARD)
+-DCFG_TUSB_MCU=OPT_MCU_STM32F4
+
+ifeq ($(BOARD),BLACKPILL)
+  C_DEFS += -DBOARD=\"src/hal/boards/stm32/boardmap_blackpill.h\"
+else ifeq ($(BOARD),MKS_ROBIN_NANO_V3_1)
+  C_DEFS += -DBOARD=\"src/hal/boards/stm32/boardmap_mks_robin_nano_v3_1.h\"
+else ifeq ($(BOARD),SKR_PRO_V1_2)
+  C_DEFS += -DBOARD=\"src/hal/boards/stm32/boardmap_srk_pro_v1_2.h\"
+else ifeq ($(BOARD),NUCLEO_F411RE_SHIELD_V3)
+  C_DEFS += -DBOARD=\"src/hal/boards/stm32/boardmap_nucleo_f411re_shield_v3.h\"
+else ifeq ($(BOARD),CUSTOM)
+  C_DEFS += -DMCU=MCU_CUSTOM
+endif
 
 # AS includes
 AS_INCLUDES = 
