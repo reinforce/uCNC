@@ -36,9 +36,7 @@ extern "C"
 #error "Undefined board. You need to define your boardmap file"
 #endif
 
-#define __BOARDMAP_FILE__(B) #B
-#define BOARDMAP_FILE(B) __BOARDMAP_FILE__(B)
-#include BOARD
+#include BOARDMAP
 #endif
 
 #include "../../../boardmap_overrides.h"
